@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="container">
+  <h1>{{ .Title }}</h1>
+
+  {{ $pages := .Site.RegularPages.ByDate.Reverse }}
+  {{ if not $pages }}
+    <p>No posts found to display in archives.</p>
+  {{ else }}
+    <p>Found {{ len $pages }} posts.</p> <!-- DEBUG LINE -->
+    {{ $currentYear := "" }}
+
+    {{ range $pages }}
+      {{ $year := .Date.Format "2006" }}
+      {{ if ne $year $currentYear }}
+        {{ if ne $currentYear "" }}</ul>{{ end }}
+        <h2>{{ $year }}</h2>
+        <ul>
+        {{ $currentYear = $year }}
+      {{ end }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a> - {{ .Date.Format "Jan 2, 2006" }}
+      </li>
+    {{ end }}
+    {{ if ne $currentYear "" }}</ul>{{ end }}
+  {{ end }}
+</div>
+{{ end }}

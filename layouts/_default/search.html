@@ -1,0 +1,16 @@
+{{ define "main" }}
+<div class="container">
+  <div class="search-page-container">
+    <h1>{{ .Title }}</h1>
+    <input type="text" id="search-query" class="search-query" placeholder="Type to search..." autofocus>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<!-- Link the assets needed for search -->
+{{ $searchCss := resources.Get "css/search.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $searchCss.RelPermalink }}">
+<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+{{ $searchJs := resources.Get "js/search.js" | minify | fingerprint }}
+<script defer src="{{ $searchJs.RelPermalink }}"></script>
+{{ end }}

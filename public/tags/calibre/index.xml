@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Calibre on Terminal</title>
+    <link>//localhost:1313/tags/calibre/</link>
+    <description>Recent content in Calibre on Terminal</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 03 Oct 2025 15:27:09 +0800</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/calibre/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Calibre搭建电子书服务器</title>
+      <link>//localhost:1313/posts/calibre/calibre%E7%94%B5%E5%AD%90%E4%B9%A6%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <pubDate>Fri, 03 Oct 2025 15:27:09 +0800</pubDate>
+      <guid>//localhost:1313/posts/calibre/calibre%E7%94%B5%E5%AD%90%E4%B9%A6%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description>&lt;h2 id=&#34;1-安装calibre&#34;&gt;1 安装Calibre&lt;/h2&gt;&#xA;&lt;p&gt;在linux主机上执行下面的命令&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo -v &amp;amp;&amp;amp; sudo calibre-uninstall &amp;amp;&amp;amp; wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin version=4.23.0&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;参考资料：https://calibre-ebook.com/download_linux&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;2-初始化&#34;&gt;2 初始化&lt;/h2&gt;&#xA;&lt;p&gt;创建存放电子书文档的目录，并执行下面的命令初始化&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# 创建库目录&#xA;mkdir -p /path/to/your/calibre/library&#xA;&#xA;# 初始化 Calibre 库&#xA;calibredb list --library-path /path/to/your/calibre/library&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;导入电子书文档&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# 导入单个文件&#xA;calibredb add book.epub --library-path /home/root/calibre&#xA;&#xA;# 导入多个文件&#xA;calibredb add book1.epub book2.pdf book3.mobi --library-path /home/root/calibre&#xA;&#xA;# 导入整个目录&#xA;calibredb add /path/to/ebooks/ --library-path /home/root/calibre&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;创建用户&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# 手动创建用户&#xA;calibre-server --manage-users&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;3-创建服务&#34;&gt;3 创建服务&lt;/h2&gt;&#xA;&lt;p&gt;创建文件/etc/systemd/system/calibre-server.service，并加入以下内容&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[Unit]&#xA;Description=Calibre Content Server&#xA;After=network.target&#xA;&#xA;[Service]&#xA;Type=simple&#xA;User=your_username&#xA;Group=your_username&#xA;ExecStart=/usr/bin/calibre-server --port 8080 --listen-on 0.0.0.0 --enable-auth --auth-mode auto /path/to/your/calibre/library&#xA;WorkingDirectory=/home/your_username&#xA;Restart=always&#xA;RestartSec=3&#xA;&#xA;[Install]&#xA;WantedBy=multi-user.target&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;your_username，替换为linux用户名&lt;br&gt;&#xA;/path/to/your/calibre/library，替换为存放电子书文档的目录&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,32 @@
+{{ define "main" }}
+<div class="tags-page">
+  <!-- 左侧：所有标签 -->
+  <div class="all-tags">
+    <h2>All Tags</h2>
+    <ul>
+      {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+        <li>
+          <a href="{{ "/tags/" | relURL }}{{ $name | urlize }}">
+            {{ $name }} ({{ len $taxonomy }})
+          </a>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+
+  <!-- 右侧：热门标签 -->
+  <div class="top-tags">
+    <h3>Top Tags</h3>
+    <ul>
+      {{ $tags := .Site.Taxonomies.tags }}
+      {{ range first 10 (sort $tags "Count" "desc") }}
+        <li>
+          <a href="{{ "/tags/" | relURL }}{{ .Name | urlize }}">
+            {{ .Name }} ({{ .Count }})
+          </a>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+{{ end }}
